@@ -59,18 +59,18 @@ fun CreateAnimalScreen(
   val snackbarHostState = remember { SnackbarHostState() }
 
   //TODO: à compléter
-  val name = rememberSaveable { mutableStateOf("") }
-  val breed = rememberSaveable { mutableStateOf(Breed.entries[0]) }
-  val age = rememberSaveable { mutableStateOf("") }
-  val weight = rememberSaveable { mutableStateOf("") }
-  val height = rememberSaveable { mutableStateOf("") }
+  val name = rememberSaveable { mutableStateOf(animal?.name ?: "") }
+  val breed = rememberSaveable { mutableStateOf(animal?.breed ?: Breed.entries[0]) }
+  val age = rememberSaveable { mutableStateOf(animal?.age?.let { animal.age.toString() } ?: "") }
+  val weight = rememberSaveable { mutableStateOf(animal?.weight?.let { animal.weight.toString() } ?: "") }
+  val height = rememberSaveable { mutableStateOf(animal?.height?.let { animal.height.toString() } ?: "") }
 
   Scaffold(
     modifier = modifier,
     topBar = {
       TopAppBar(
         title = {
-          Text(stringResource(id = R.string.create_fragment_label))
+          Text(stringResource(id = if (animal != null) R.string.description_button_edit else R.string.create_fragment_label))
         },
         navigationIcon = {
           IconButton(onClick = {
